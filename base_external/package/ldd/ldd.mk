@@ -22,6 +22,8 @@ define LDD_INSTALL_TARGET_CMDS
 	# Install the .ko files built in misc-modules and scull into /lib/modules/…/extra
 	$(INSTALL) -m 0755 $(@D)/misc-modules/*.ko $(TARGET_DIR)/lib/modules/$(LINUX_VERSION_PROBED)/extra
 	$(INSTALL) -m 0755 $(@D)/scull/*.ko $(TARGET_DIR)/lib/modules/$(LINUX_VERSION_PROBED)/extra
+	#$(INSTALL) -D -m 0755 $(LDD_PKGDIR)/S98lddmodules $(TARGET_DIR)/etc/init.d/S98lddmodules
+	#$(INSTALL) -D -m 0755 $(@D)/../package/ldd/S98lddmodules $(TARGET_DIR)/etc/init.d/S98lddmodules
 
 endef
 

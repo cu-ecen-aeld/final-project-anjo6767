@@ -1,32 +1,30 @@
 #!/bin/sh
 case "$1" in
   start)
-    echo "Loading modules..."
-    insmod /lib/modules/$(uname -r)/extra/scull.ko  || modprobe scull
-    insmod /lib/modules/$(uname -r)/extra/faulty.ko || modprobe faulty
-    insmod /lib/modules/$(uname -r)/extra/hello.ko  || modprobe hello
+    echo "Loading aesdchar"
+    # Try insmod from the Buildroot 'extra' path, fall back to modprobe
+    insmod /lib/modules/$(uname -r)/extra/aesdchar.ko || modprobe aesdchar
 
-    # Create /dev/faulty node
-    if [ ! -e /dev/faulty ]; then
-        major=$(awk '/faulty/ {print $1}' /proc/devices)
+    # Create /dev/aesdchar node if it doesn't exist (systems without udev/mdev)
+    if [ ! -e /dev/aesdchar ]; then
+        major=$(awk '$2=="aesdchar"{print $1}' /proc/devices)
         if [ -n "$major" ]; then
-            echo "Creating /dev/faulty node"
-            mknod /dev/faulty c "$major" 0
-            chmod 666 /dev/faulty
+            echo "Creating /dev/aesdchar (major $major)"
+            mknod /dev/aesdchar c "$major" 0
+            chmod 666 /dev/aesdchar
         else
-            echo "Could not find faulty entry"
+            echo "Could not find aesdchar"
         fi
     fi
 
-    echo "Modules loaded."
+    echo "aesdchar loaded."
     ;;
 
   stop)
-    echo "Unloading modules..."
-    rmmod hello
-    rmmod faulty
-    rmmod scull
-    echo "Modules unloaded."
+    echo "Unloading aesdchar"
+    # Do NOT remove /dev/aesdchar per assignment requirement
+    rmmod aesdchar 
+    echo "aesdchar unloaded."
     ;;
 
   restart)
