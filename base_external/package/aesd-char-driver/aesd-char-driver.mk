@@ -2,7 +2,7 @@
 # aesd-char-driver
 ################################################################################
 
-AESD_CHAR_DRIVER_VERSION = 585abe7580c1c64884f1821bdc991a27f53c1729
+AESD_CHAR_DRIVER_VERSION = 231a8c940731640b7041852dd640046deb15e8c4
 
 AESD_CHAR_DRIVER_SITE = git@github.com:cu-ecen-aeld/assignments-3-and-later-anjo6767.git
 AESD_CHAR_DRIVER_SITE_METHOD = git
