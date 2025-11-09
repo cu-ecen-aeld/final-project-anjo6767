@@ -1,0 +1,44 @@
+#!/bin/sh
+case "$1" in
+  start)
+    echo "Loading modules..."
+    insmod /lib/modules/$(uname -r)/extra/scull.ko  || modprobe scull
+    insmod /lib/modules/$(uname -r)/extra/faulty.ko || modprobe faulty
+    insmod /lib/modules/$(uname -r)/extra/hello.ko  || modprobe hello
+
+    # Create /dev/faulty node
+    if [ ! -e /dev/faulty ]; then
+        major=$(awk '/faulty/ {print $1}' /proc/devices)
+        if [ -n "$major" ]; then
+            echo "Creating /dev/faulty node"
+            mknod /dev/faulty c "$major" 0
+            chmod 666 /dev/faulty
+        else
+            echo "Could not find faulty entry"
+        fi
+    fi
+
+    echo "Modules loaded."
+    ;;
+
+  stop)
+    echo "Unloading modules..."
+    rmmod hello
+    rmmod faulty
+    rmmod scull
+    echo "Modules unloaded."
+    ;;
+
+  restart)
+    $0 stop
+    $0 start
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
+
