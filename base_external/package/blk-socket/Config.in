@@ -1,0 +1,5 @@
+
+config BR2_PACKAGE_BLK_SOCKET
+	bool "blk-socket"
+	help
+	  Includes socket for block driver.

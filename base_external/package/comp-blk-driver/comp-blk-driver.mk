@@ -6,7 +6,7 @@
 ##############################################################
 
 #TODO: Fill up the contents below in order to reference your assignment 3 git contents
-COMP_BLK_DRIVER_VERSION = 4c909d3c74d0df7a5748fa7704e1b9a3e10acd2e
+COMP_BLK_DRIVER_VERSION = e37c02604b8662b477102b98630ca8fd267d0e40
 # Note: Be sure to reference the *ssh* repository URL here (not https) to work properly
 # with ssh keys and the automated build/test system.
 # Your site should start with git@github.com:
