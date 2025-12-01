@@ -1,0 +1,5 @@
+
+config BR2_PACKAGE_COMP_BLK_DRIVER
+	bool "comp-blk-driver"
+	help
+	  Includes compression block device driver kernel module.

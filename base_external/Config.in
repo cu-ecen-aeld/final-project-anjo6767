@@ -1,6 +1,5 @@
 menu "Custom external options"
 	source "$BR2_EXTERNAL_project_base_PATH/package/aesd-assignments/Config.in"
-    	source "$BR2_EXTERNAL_project_base_PATH/package/ldd/Config.in"
-    	source "$BR2_EXTERNAL_project_base_PATH/package/aesd-char-driver/Config.in"
-    	
+    	source "$BR2_EXTERNAL_project_base_PATH/package/comp-blk-driver/Config.in"
+    	source "$BR2_EXTERNAL_project_base_PATH/package/blk-socket/Config.in"
 endmenu
