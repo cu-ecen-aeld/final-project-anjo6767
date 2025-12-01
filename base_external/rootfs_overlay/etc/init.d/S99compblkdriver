@@ -1,0 +1,42 @@
+#!/bin/sh
+case "$1" in
+  start)
+    echo "Loading Compression Block Device Driver"
+    insmod /lib/modules/$(uname -r)/extra/main.ko || modprobe main
+
+
+   
+    if [ ! -e /dev/compblkdev ]; then
+        major=$(awk '/compblkdev/ {print $1}' /proc/devices)
+        if [ -n "$major" ]; then
+            echo "Creating /dev/compblkdev node with major number $major"
+            mknod /dev/compblkdev b "$major" 0
+            chmod 666 /dev/compblkdev
+        else
+            echo "Could not find compblkdev entry in /proc/devices"
+        fi
+    fi
+
+    echo "Compression Block Device Driver loaded."
+    ;;
+
+ stop)
+    echo "Unloading Compression Block Device Driver"
+    rmmod main
+    rm -f /dev/compblkdev
+    echo "Driver unloaded."
+    ;;
+
+  restart)
+    $0 stop
+    $0 start
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
+
